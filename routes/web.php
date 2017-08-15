@@ -19,6 +19,15 @@ Auth::routes();
 
 Route::get('/', 'CekController@index');
 
+Route::get('mparameter',        'MasterParameterController@mparameter');
+Route::get('derectorat',        'subMasterParameterController@derectorat');
+Route::get('divisi',            'subMasterParameterController@divisi');
+Route::get('departement',			  'subMasterParameterController@departement');
+Route::get('costofsales',			  'subMasterParameterController@costofsales');
+Route::get('title',             'subMasterParameterController@title');
+Route::get('grade',             'subMasterParameterController@grade');
+Route::get('level',             'subMasterParameterController@level');
+
 Route::get('libur',             'MasterParameterController@libur');
 
 Route::match(['get', 'post'],   'MasterParameterJqgrid',	'MasterParameterCrudController@jqgrid');

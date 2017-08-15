@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-use App\menuadmin;
+use App\Models\menuadmin;
 
 use DB;
 use Auth;

@@ -416,6 +416,7 @@ class ComposerStaticInitbf04581526c8d96a8edeba3758ae9e60
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'CreateMenuadmins' => __DIR__ . '/../..' . '/database/migrations/2017_08_15_133816_create_menuadmins.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateTbLibur' => __DIR__ . '/../..' . '/database/migrations/2017_08_15_144045_create_tb_libur.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',

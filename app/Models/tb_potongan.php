@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class syn_m_title extends Model
+class tb_potongan extends Model
 {
     //
 }

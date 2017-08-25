@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTbTunjangansTable extends Migration
+class CreateSynMRelasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTbTunjangansTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_tunjangan', function (Blueprint $table) {
+        Schema::create('syn_m_relasi', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('payroll_id',30);
-            $table->string('jenis',20);
-            $table->string('value',20)->nullable();
-            $table->integer('berlaku',15);
+            $table->string('code',20);
+            $table->string('description',100);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTbTunjangansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_tunjangan');
+        Schema::dropIfExists('syn_m_relasi');
     }
 }

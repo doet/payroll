@@ -67,7 +67,7 @@ class CreateSynMKaryawansTable extends Migration
             $table->string('kota_ktp',45)->nullable();
             $table->string('id_kecamatan',45)->nullable();
             $table->string('nama_kecamatan',100)->nullable();
-            $table->string('id_keluraahan',45)->nullable();
+            $table->string('id_kelurahan',45)->nullable();
             $table->string('nama_kelurahan',100)->nullable();
             $table->string('kode_pos',10)->nullable();
 

@@ -1,6 +1,4 @@
-public/storage
-public/hot
-storage/*.key
-.env.*.php
-.env.php
 .env
+config/database.php
+public/files/
+public/att/

@@ -13,14 +13,15 @@ class CreateSynMTitlesTable extends Migration
      */
     public function up()
     {
-      Schema::create('syn_m_title', function (Blueprint $table) {
-          $table->string('title_code',6);
-          $table->string('title',255)->nullable();
-          $table->longText('job_desc')->nullable();
-          $table->string('active',1)->default('Y')->nullable();
-          $table->string('attachment',255)->nullable();
+      Schema::create('syn_m_titles', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('title_code',6)->unique();
+        $table->string('title',255)->nullable();
+        $table->longText('job_desc')->nullable();
+        $table->string('active',1)->default('Y')->nullable();
+        $table->string('attachment',255)->nullable();
 
-          $table->timestamps();
+        $table->timestamps();
       });
     }
 
@@ -31,6 +32,6 @@ class CreateSynMTitlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_title');
+        Schema::dropIfExists('syn_m_titles');
     }
 }

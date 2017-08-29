@@ -1,6 +1,6 @@
 <div style="height: 700px;">
 <form class="form-horizontal form-aktif" id="form-1" method="get">
-    
+
     <div class="form-group col-xs-2 center">
         <div >
             <span class="profile-picture">
@@ -21,8 +21,8 @@
 
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Tgl. Lahir </div>
-                                <div class="profile-info-value">                                    
-                                    <span><?php echo $data->tempat_lahir .','. $data->tgl_lahir ?></span>
+                                <div class="profile-info-value">
+                                    <span> <?php echo $data->tempat_lahir .', '. date('d-m-Y',$data->tgl_lahir) ?></span>
                                 </div>
                             </div>
 
@@ -45,14 +45,14 @@
                                 <div class="profile-info-value">
                                     <span><?php echo $data->gol_darah ?></span>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Status </div>
                                 <div class="profile-info-value">
                                     <span><?php echo $data->marital_status ?></span>
                                 </div>
                             </div>
-                            <div>&nbsp;</div> 
+                            <div>&nbsp;</div>
                         </div>
                         <div class=" profile-user-info-striped col-xs-5">
                             <div class="profile-info-row">
@@ -64,7 +64,7 @@
 
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> No KTP </div>
-                                <div class="profile-info-value">                                    
+                                <div class="profile-info-value">
                                     <span><?php echo $data->no_ktp ?></span>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Alamat </div>
                                 <div class="profile-info-value" style="height: 65px">
-                                    <span><?php echo $data->alamat_ktp.' RT.'.$data->rt.' RW.'.$data->rw.' - '.$data->kota_ktp.'. '.$data->kode_pos ?></span>
+                                    <span><?php echo '' ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
@@ -87,32 +87,32 @@
                                 <div class="profile-info-value">
                                     <span><?php echo $data->telp1 ?></span>
                                 </div>
-                            </div> 
-                            <div>&nbsp;</div>                                                                           
+                            </div>
+                            <div>&nbsp;</div>
                         </div>
-                        
+
                         <div class=" profile-user-info-striped col-xs-4">
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Date. in-out </div>
-                                <div class="profile-info-value">                                    
-                                    <span><?php echo $data->tgl_masuk .' s.d. '. $data->tgl_keluar ?></span>
+                                <div class="profile-info-value">
+                                    <span><?php echo date('d-m-Y',$data->tgl_masuk) .' s.d. '. date('d-m-Y',$data->tgl_keluar) ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Finish Contract </div>
-                                <div class="profile-info-value">                                    
-                                    <span><?php echo $data->tgl_finish_contract ?></span>
+                                <div class="profile-info-value">
+                                    <span><?php echo date('d-m-Y',$data->tgl_finish_contract) ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Grade </div>
-                                <div class="profile-info-value">                                    
+                                <div class="profile-info-value">
                                     <span><?php echo $data->grade ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Level </div>
-                                <div class="profile-info-value">                                    
+                                <div class="profile-info-value">
                                     <span><?php echo $data->level ?></span>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Title </div>
-                                <div class="profile-info-value">                                    
+                                <div class="profile-info-value">
                                     <span><?php echo $data->title ?></span>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                 <div class="profile-info-value">
                                     <span><?php echo $data->div_name ?></span>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Directorat </div>
                                 <div class="profile-info-value">
@@ -161,7 +161,7 @@
 
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Bank </div>
-                                <div class="profile-info-value">                                    
+                                <div class="profile-info-value">
                                     <span><?php echo "( ".$data->nama_bank." )". $data->no_account_bank ?></span>
                                 </div>
                             </div>
@@ -176,22 +176,22 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Divisi </div>
                                 <div class="profile-info-value">
-                                    <span><?php echo $data->id_customer ?></span>
+                                    <span><?php echo $data->div_name ?></span>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> ID Driver </div>
                                 <div class="profile-info-value">
                                     <span><?php echo $data->id_driver ?></span>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
 </form>     </div>
 
 <script type="text/javascript">
             // *** editable avatar *** //
             try {//ie8 throws some harmless exceptions, so let's catch'em
-        
+
                 //first let's add a fake appendChild method for Image element for browsers that have a problem with this
                 //because editable plugin calls appendChild, and it causes errors on IE at unpredicted points
                 try {
@@ -199,7 +199,7 @@
                 } catch(e) {
                     Image.prototype.appendChild = function(el){}
                 }
-        
+
                 var last_gritter
                 $('#avatar').editable({
                     type: 'image',
@@ -211,7 +211,7 @@
                         btn_choose: 'Change Avatar',
                         droppable: true,
                         maxSize: 110000,//~100Kb
-        
+
                         //and a few extra ones here
                         name: 'avatar',//put the field name here as well, will be used inside the custom plugin
                         on_error : function(error_type) {//on_error function will be called when the selected file has a problem
@@ -238,18 +238,18 @@
                     },
                     url: function(params) {
                         // ***UPDATE AVATAR HERE*** //
-                        //for a working upload example you can replace the contents of this function with 
+                        //for a working upload example you can replace the contents of this function with
                         //examples/profile-avatar-update.js
-        
+
                         var deferred = new $.Deferred
-        
+
                         var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
                         if(!value || value.length == 0) {
                             deferred.resolve();
                             return deferred.promise();
                         }
-        
-        
+
+
                         //dummy upload
                         setTimeout(function(){
                             if("FileReader" in window) {
@@ -257,28 +257,28 @@
                                 var thumb = $('#avatar').next().find('img').data('thumb');
                                 if(thumb) $('#avatar').get(0).src = thumb;
                             }
-                            
+
                             deferred.resolve({'status':'OK'});
-        
+
                             if(last_gritter) $.gritter.remove(last_gritter);
                             last_gritter = $.gritter.add({
                                 title: 'Avatar Updated!',
                                 text: 'Uploading to server can be easily implemented. A working example is included with the template.',
                                 class_name: 'gritter-info gritter-center'
                             });
-                            
+
                          } , parseInt(Math.random() * 800 + 800))
-        
+
                         return deferred.promise();
-                        
+
                         // ***END OF UPDATE AVATAR HERE*** //
                     },
-                    
+
                     success: function(response, newValue) {
                     }
                 })
             }catch(e) {}
-            
+
             /**
             //let's display edit mode by default?
             var blank_image = true;//somehow you determine if image is initially blank or not, or you just want to display file input at first

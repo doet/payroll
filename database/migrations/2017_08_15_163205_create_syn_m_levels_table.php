@@ -13,8 +13,9 @@ class CreateSynMLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('syn_m_level', function (Blueprint $table) {
-          $table->string('level_code',7);
+        Schema::create('syn_m_levels', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('level_code',7)->unique();
           $table->string('level',255)->nullable();
           $table->timestamps();
         });
@@ -27,6 +28,6 @@ class CreateSynMLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_level');
+        Schema::dropIfExists('syn_m_levels');
     }
 }

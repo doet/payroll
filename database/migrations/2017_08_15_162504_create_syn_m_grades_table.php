@@ -13,8 +13,9 @@ class CreateSynMGradesTable extends Migration
      */
     public function up()
     {
-        Schema::create('syn_m_grade', function (Blueprint $table) {
-          $table->string('grade_code',7);
+        Schema::create('syn_m_grades', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('grade_code',7)->unique();
           $table->string('grade',255)->nullable();
           $table->timestamps();
         });
@@ -27,6 +28,6 @@ class CreateSynMGradesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_grade');
+        Schema::dropIfExists('syn_m_grades');
     }
 }

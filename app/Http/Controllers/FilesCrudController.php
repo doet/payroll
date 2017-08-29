@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 
 use App\Models\menuadmin;
+use App\Models\syn_karyawans;
 
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Writer\WriterFactory;
@@ -125,25 +126,18 @@ class FilesCrudController extends Controller
             case 'files':
               $tree_data_2['status']="OK" ;
 
-              $query = DB::table('tb_file')->where('parent_id',$id)->get();
-
               if ($id == 0) {
-                $tree_data_2['data'][0]['text'] = 'karyawan';
-                $tree_data_2['data'][0]['icon-class'] = "green";
-                $tree_data_2['data'][0]['type'] = 'folder';
-                $tree_data_2['data'][0]['additionalParameters']['id'] = 1;
-                $tree_data_2['data'][0]['additionalParameters']['children'] = true;
 
                 $tree_data_2['data'][1]['text'] = 'Benefit';
                 $tree_data_2['data'][1]['icon-class'] = "red";
                 $tree_data_2['data'][1]['type'] = 'folder';
-                $tree_data_2['data'][1]['additionalParameters']['id'] = 2;
+                $tree_data_2['data'][1]['additionalParameters']['id'] = 1;
                 $tree_data_2['data'][1]['additionalParameters']['children'] = true;
 
                 $tree_data_2['data'][2]['text'] = 'Potongan';
                 $tree_data_2['data'][2]['icon-class'] = "red";
                 $tree_data_2['data'][2]['type'] = 'folder';
-                $tree_data_2['data'][2]['additionalParameters']['id'] = 3;
+                $tree_data_2['data'][2]['additionalParameters']['id'] = 2;
                 $tree_data_2['data'][2]['additionalParameters']['children'] = true;
               }else{
                 //Buka Folder
@@ -155,11 +149,9 @@ class FilesCrudController extends Controller
                 $filterfile=0;
 
                 while($baca_folder = readdir($buka_folder)){
-                  if ($id == 1){
-                    $filterfile = strpos($baca_folder,"karyawan");
-                  } else if($id == 2) {
+                  if ($id == 1) {
                     $filterfile = strpos($baca_folder,"benefit");
-                  } else if ($id == 3){
+                  } else if ($id == 2){
                     $filterfile = strpos($baca_folder,"potongan");
                   }
                   if ($filterfile) $file_array[] = $baca_folder;
@@ -255,7 +247,7 @@ class FilesCrudController extends Controller
                 if ($request->input('fname'))$fname = $request->input('fname'); else return;
                 $reader->open(public_path().'\files\\'.$fname);
 
-                $tmp=$header=$isinya=array();
+                $arrytmp=$tmp=$header=$isinya=array();
                 $l=0;
 
                 foreach ($reader->getSheetIterator() as $sheet) {
@@ -284,7 +276,7 @@ class FilesCrudController extends Controller
                             );
 
                             // cek jika data sudah ada
-                            if (strpos($fname,"benefit") != false) $table='tb_tunjangan'; else $table='tb_potongan';
+                            if (strpos($fname,"benefit") != false) $table='syn_tunjangan'; else $table='syn_potongan';
 
                             $cek = DB::table($table)
                               ->where('payroll_id',$fillfield)
@@ -325,25 +317,43 @@ class FilesCrudController extends Controller
                         if ($row[0]!=''){
                           for( $i=0 ; $i < count($header) ; $i++ ){
                             $fillfield = trim($row[1]);
-                            array_push($isinya,$row[$i]);
-                            if ($row[$i]=="")$fillvalue=(NULL); else $fillvalue=$row[$i];
-                            if ($i >= 2 ) {
+
+                            if ($row[$i]=="") {
+                              $fillvalue=(NULL);
+                            } else {
+                              if (explode('_',$header[$i])[0] == 'tgl') {
+                                if (is_array($row[$i])){
+                                  foreach ($row[$i] as $key => $value) {
+                                    $arrytmp[$key] = $value;
+                                  }
+
+                                  $fillvalue=strtotime($arrytmp['date']);
+                                }else{
+                                  $fillvalue=(NULL);
+                                }
+                                // array_push($isinya,$row[$i]);
+                              }else {
+                                $fillvalue=$row[$i];
+                              }
+                            }
+
+                            //
+                            if ($i >= 1 ) {
                               $datanya=array(
                                 'payroll_id'    => $fillfield,
-                                'nama_karyawan' => $row[2],
                                 $header[$i]     => $fillvalue,
                                 'updated_at'    => date("Y-m-d H:i:s")
                               );
-                              $cek = DB::table('syn_m_karyawan')
+                              $cek = DB::table('syn_karyawans')
                                 ->where('payroll_id',$fillfield)
                                 ->first();
 
-                              $cn = DB::getSchemaBuilder()->getColumnListing('syn_m_karyawan');
+                              $cn = DB::getSchemaBuilder()->getColumnListing('syn_karyawans');
                               if (in_array($header[$i],$cn)){
                                 if(!$cek) {
-                                  DB::table('syn_m_karyawan')->insert($datanya);
+                                  DB::table('syn_karyawans')->insert($datanya);
                                 } else {
-                                  DB::table('syn_m_karyawan')->where('id',$cek->id)->update($datanya);
+                                  DB::table('syn_karyawans')->where('id',$cek->id)->update($datanya);
                                 }
                               }
                             }

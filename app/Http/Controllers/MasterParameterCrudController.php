@@ -42,15 +42,15 @@ class MasterParameterCrudController extends Controller
         switch ($datatb) {
             case 'derectorat':   // Variabel Master
                 $sidx = $request->input('sidx', 'dir_code');
-                $count = DB::table('syn_m_directorat')->count();
+                $count = DB::table('syn_m_directorats')->count();
             break;
             case 'divisi':   // Variabel Master
                 $sidx = $request->input('sidx', 'div_code');
-                $count = DB::table('syn_m_division')->count();
+                $count = DB::table('syn_m_divisions')->count();
             break;
             case 'departement':   // Variabel Master
                 $sidx = $request->input('sidx', 'dept_code');
-                $count = DB::table('syn_m_dept')->count();
+                $count = DB::table('syn_m_depts')->count();
             break;
             case 'costofsales':   // Variabel Master
                 $sidx = $request->input('sidx', 'cost_sales_code');
@@ -58,15 +58,15 @@ class MasterParameterCrudController extends Controller
             break;
             case 'title':   // Variabel Master
                 $sidx = $request->input('sidx', 'title_code');
-                $count = DB::table('syn_m_title')->count();
+                $count = DB::table('syn_m_titles')->count();
             break;
             case 'grade':   // Variabel Master
                 $sidx = $request->input('sidx', 'grade_code');
-                $count = DB::table('syn_m_grade')->count();
+                $count = DB::table('syn_m_grades')->count();
             break;
             case 'level':   // Variabel Master
                 $sidx = $request->input('sidx', 'level_code');
-                $count = DB::table('syn_m_level')->count();
+                $count = DB::table('syn_m_levels')->count();
             break;
             case 'mlibur':   // Libur dan Cuti Bersama
                 $sidx = $request->input('sidx', 'tgllibur');
@@ -92,21 +92,21 @@ class MasterParameterCrudController extends Controller
     // Mengambil Nilai Query //
         switch ($datatb) {
             case 'derectorat':   // Vaariabel Master
-                $query = DB::table('syn_m_directorat')->orderBy($sidx, $sord)
+                $query = DB::table('syn_m_directorats')->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
                     ->get();
             break;
             case 'divisi':   // Vaariabel Master
-                $query = DB::table('syn_m_division')->leftJoin('syn_m_directorat','syn_m_directorat.dir_code','=','syn_m_division.dir_code')
+                $query = DB::table('syn_m_divisions')->leftJoin('syn_m_directorats','syn_m_directorats.dir_code','syn_m_divisions.dir_code')
                     ->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
-                    ->get(array('syn_m_division.*','syn_m_directorat.dir_name'));
+                    ->get(array('syn_m_divisions.*','syn_m_directorats.dir_name'));
             break;
             case 'departement':   // Vaariabel Master
-                $query = DB::table('syn_m_dept')->leftJoin('syn_m_division','syn_m_division.div_code','=','syn_m_dept.div_code')
+                $query = DB::table('syn_m_depts')->leftJoin('syn_m_divisions','syn_m_divisions.div_code','=','syn_m_depts.div_code')
                     ->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
-                    ->get(array('syn_m_dept.*','syn_m_division.div_name'));
+                    ->get(array('syn_m_depts.*','syn_m_divisions.div_name'));
             break;
             case 'costofsales':   // Vaariabel Master
                 $query = DB::table('syn_m_cost_sales')->orderBy($sidx, $sord)
@@ -114,17 +114,17 @@ class MasterParameterCrudController extends Controller
                     ->get();
             break;
             case 'title':   // Vaariabel Master
-                $query = DB::table('syn_m_title')->orderBy($sidx, $sord)
+                $query = DB::table('syn_m_titles')->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
                     ->get();
             break;
             case 'grade':   // Vaariabel Master
-                $query = DB::table('syn_m_grade')->orderBy($sidx, $sord)
+                $query = DB::table('syn_m_grades')->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
                     ->get();
             break;
             case 'level':   // Vaariabel Master
-                $query = DB::table('syn_m_level')->orderBy($sidx, $sord)
+                $query = DB::table('syn_m_levels')->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
                     ->get();
             break;
@@ -244,6 +244,15 @@ class MasterParameterCrudController extends Controller
 
                 return $response;
             break;
+            case 'parameter':
+              $datanya=array(
+                  'tgllibur' =>strtotime($tgl),
+                  'ket'=>$request->input('ket',''),
+                  'updated_at' =>date("Y-m-d H:i:s")
+              );
+              return $response;
+            break;
+
         }
     }
 }

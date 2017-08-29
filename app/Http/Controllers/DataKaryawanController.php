@@ -34,7 +34,7 @@ class DataKaryawanController extends Controller
         $index      = menuadmin::where('part','mkaryawan')->first();
         $aktif_menu = menuadmin::aktif_menu($index['id']);
 
-        $lokasi = DB::table('syn_m_lokasi')->get();
+        $lokasi = DB::table('syn_m_lokasis')->get();
 
         return view('backend.mkaryawan', compact('multilevel','aktif_menu','index','lokasi'));
 

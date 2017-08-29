@@ -20,9 +20,9 @@ class CreateTbPotongansTable extends Migration
           $table->string('value',20)->nullable();
           $table->integer('berlaku');
           $table->timestamps();
-          
+
           $table->foreign('payroll_id')->references('payroll_id')
-           ->on('syn_m_karyawan')->onDelete('cascade');
+           ->on('syn_m_karyawans')->onDelete('restrict');
         });
     }
 

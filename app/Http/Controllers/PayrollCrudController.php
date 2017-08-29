@@ -139,7 +139,7 @@ $edate='15 Jan 2017';
                 $tmp=array();
                 $jenis=array();
 
-                $grouptunjangan = DB::table('tb_tunjangan')
+                $grouptunjangan = DB::table('syn_tunjangan')
                   ->where('berlaku','<=',strtotime($request->input('setdate')))
                   ->orderBy('berlaku','desc')
                   ->get();
@@ -155,7 +155,7 @@ $edate='15 Jan 2017';
                 //     'upahpokok','upahharian','tkontribusi','tprestasi','makan','transport','trelokasi','tjabatan','tkomunikasi','finsentif','skill','shift','insentif');
 
                 foreach ($jenistunjangan as $key ) {
-                  $tunjangan = DB::table('tb_tunjangan')
+                  $tunjangan = DB::table('syn_tunjangan')
                     ->where('payroll_id',$id)
                     ->where('jenis',$key)
                     ->where('berlaku','<=',strtotime($request->input('setdate')))
@@ -210,7 +210,7 @@ $edate='15 Jan 2017';
                                         'tgl'       =>$tgl[$i],
                                         'updated_at'=>date("Y-m-d H:i:s")
                                     );
-                                    //if($row[$i])DB::table('tb_att')->insert($datanya);
+                                    //if($row[$i])DB::table('syn_att')->insert($datanya);
                                 }
                             }
                         }
@@ -242,7 +242,7 @@ $edate='15 Jan 2017';
                         'berlaku' => $setdate,
                         'updated_at' =>date("Y-m-d H:i:s")
                     );
-                    $tunjangan = DB::table('tb_tunjangan')
+                    $tunjangan = DB::table('syn_tunjangan')
                         ->where('payroll_id',$request->input('payroll_id'))
                         ->where('berlaku','<=',$setdate)
                         ->where('jenis',str_replace("'","", $key))
@@ -250,12 +250,12 @@ $edate='15 Jan 2017';
                         //->where('berlaku',strtotime($request->input('setdate')))
                         ->first();
                     if (!$tunjangan){
-                        DB::table('tb_tunjangan')->insert($datanya);
+                        DB::table('syn_tunjangan')->insert($datanya);
                     } else {
                         if ($tunjangan->berlaku == $setdate AND $tunjangan->value != $value) {
-                            DB::table('tb_tunjangan')->where('id', $tunjangan->id)->update($datanya);
+                            DB::table('syn_tunjangan')->where('id', $tunjangan->id)->update($datanya);
                         } else if ($tunjangan->berlaku != $setdate AND $tunjangan->value != $value) {
-                            DB::table('tb_tunjangan')->insert($datanya);
+                            DB::table('syn_tunjangan')->insert($datanya);
                         }
                     }
                 }
@@ -268,7 +268,7 @@ $edate='15 Jan 2017';
                         'berlaku' => $setdate,
                         'updated_at' =>date("Y-m-d H:i:s")
                     );
-                    $potong = DB::table('tb_potongan')
+                    $potong = DB::table('syn_potongan')
                         ->where('payroll_id',$request->input('payroll_id'))
                         ->where('berlaku','<=',$setdate)
                         ->where('jenis',str_replace("'","", $key))
@@ -276,12 +276,12 @@ $edate='15 Jan 2017';
                         //->where('berlaku',strtotime($request->input('setdate')))
                         ->first();
                     if (!$potong){
-                        DB::table('tb_potongan')->insert($datanya);
+                        DB::table('syn_potongan')->insert($datanya);
                     } else {
                         if ($potong->berlaku == $setdate AND $potong->value != $value) {
-                            DB::table('tb_potongan')->where('id', $potong->id)->update($datanya);
+                            DB::table('syn_potongan')->where('id', $potong->id)->update($datanya);
                         } else if ($potong->berlaku != $setdate AND $potong->value != $value) {
-                            DB::table('tb_potongan')->insert($datanya);
+                            DB::table('syn_potongan')->insert($datanya);
                         }
                     }
                 }

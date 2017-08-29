@@ -54,6 +54,22 @@ return [
             'engine' => null,
         ],
 
+        # Our secondary database connection
+        'mysql2' => array(
+            'driver'    => 'mysql',
+            'host'      => '2f2c0120e03b.sn.mynetname.net',
+            'port'      => env('DB_PORT', '3306'),
+            'database'  => 'db_bcs',
+            'username'  => 'doet',
+            'password'  => 'pcm123',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ),
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

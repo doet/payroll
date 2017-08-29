@@ -144,7 +144,7 @@ class AttCrudController extends Controller
 
                 $tree_data_2['status']="OK" ;
 
-                $query = DB::table('tb_file')->where('parent_id',$id)->get();
+
                 $i=0;
 
                 if ($id == 0) {
@@ -252,7 +252,7 @@ class AttCrudController extends Controller
                                         'tgl'       =>$tgl[$i],
                                         'updated_at'=>date("Y-m-d H:i:s")
                                     );
-                                    //if($row[$i])DB::table('tb_att')->insert($datanya);
+                                    //if($row[$i])DB::table('syn_att')->insert($datanya);
                                 }
                                 if ($request->input('fname'))$tmp['priode'] = date('d M Y',$priode[3]) .' - '. date('d M Y',$priode[$i]); else $tmp['priode'] = '';
                             }
@@ -360,28 +360,28 @@ class AttCrudController extends Controller
 
 
                                     if (strpos($fname, 'normal') == true){
-                                        $cek = DB::table('tb_att')
+                                        $cek = DB::table('syn_att')
                                             ->where('payroll_id',$row[0])
                                             ->where('jenis',$row[2])
                                             ->where('tgl',strtotime($tgl[$i]))
                                             ->first();
 
                                         if(!$cek) {
-                                            if($row[$i])DB::table('tb_att')->insert($datanya);
+                                            if($row[$i])DB::table('syn_att')->insert($datanya);
                                         } else if ($cek->nilai != $row[$i]) {
-                                            DB::table('tb_att')->where('id',$cek->id)->update($datanya);
+                                            DB::table('syn_att')->where('id',$cek->id)->update($datanya);
                                         }
                                     } else if (strpos($fname, 'lembur') == true){
-                                        $cek = DB::table('tb_att_lembur')
+                                        $cek = DB::table('syn_att_lembur')
                                             ->where('payroll_id',$row[0])
                                             ->where('jenis',$row[2])
                                             ->where('tgl',strtotime($tgl[$i]))
                                             ->first();
 
                                         if(!$cek) {
-                                            if($row[$i])DB::table('tb_att_lembur')->insert($datanya);
+                                            if($row[$i])DB::table('syn_att_lembur')->insert($datanya);
                                         } else if ($cek->nilai != $row[$i]) {
-                                            DB::table('tb_att_lembur')->where('id',$cek->id)->update($datanya);
+                                            DB::table('syn_att_lembur')->where('id',$cek->id)->update($datanya);
                                         }
                                     }
                                 }

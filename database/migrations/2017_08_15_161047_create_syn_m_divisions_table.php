@@ -13,13 +13,16 @@ class CreateSynMDivisionsTable extends Migration
      */
     public function up()
     {
-      Schema::create('syn_m_division', function (Blueprint $table) {
+      Schema::create('syn_m_divisions', function (Blueprint $table) {
         $table->increments('id');
-        $table->string('div_code',45)->nullable();
+        $table->string('div_code',45)->unique();
         $table->string('div_name',300)->nullable();
         $table->string('dir_code',45)->nullable();
         $table->enum('active', ['Y', 'N'])->default('Y')->nullable();
         $table->timestamps();
+
+         $table->foreign('dir_code')->references('dir_code')
+          ->on('syn_m_directorats')->onDelete('restrict');
       });
     }
 
@@ -30,6 +33,6 @@ class CreateSynMDivisionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_division');
+        Schema::dropIfExists('syn_m_divisions');
     }
 }

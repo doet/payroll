@@ -13,11 +13,12 @@ class CreateSynMDirectoratsTable extends Migration
      */
     public function up()
     {
-        Schema::create('syn_m_directorat', function (Blueprint $table) {
+        Schema::create('syn_m_directorats', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('dir_code',45)->nullable();
+          $table->string('dir_code',45)->unique();
           $table->string('dir_name',300)->nullable();
           $table->enum('active', ['Y', 'N'])->default('Y')->nullable();
+
           $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSynMDirectoratsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_directorat');
+        Schema::dropIfExists('syn_m_directorats');
     }
 }

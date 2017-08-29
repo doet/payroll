@@ -22,7 +22,7 @@ class CreateTbTunjangansTable extends Migration
           $table->timestamps();
 
           $table->foreign('payroll_id')->references('payroll_id')
-           ->on('syn_m_karyawan')->onDelete('cascade');
+           ->on('syn_m_karyawans')->onDelete('restrict');
         });
     }
 

@@ -8,7 +8,7 @@
         <div class="profile-info-row">
             <div class="profile-info-name"> Nama </div>
             <div class="profile-info-value">
-                <span><?php echo $data->nama_karyawan ?></span>
+                <span><?php echo $data->nama ?></span>
             </div>
         </div>
         <div class="profile-info-row">

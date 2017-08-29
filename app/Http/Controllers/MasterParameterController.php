@@ -74,7 +74,7 @@ class MasterParameterController extends Controller
                     for( $i=3 ; $i < count($row) ; $i++ ){
                         $kar = DB::table('syn_m_karyawan')->where('payroll_id',$row[0])->first();
 
-                        $cek = DB::table('tb_att')->where('payroll_id',$kar->payroll_id)
+                        $cek = DB::table('syn_att')->where('payroll_id',$kar->payroll_id)
                             ->where('jenis',$row[2])
                             ->where('tgl',$tgl[$i])
                             ->first();
@@ -91,7 +91,7 @@ class MasterParameterController extends Controller
                             'tgl'=> $tgl[$i],
                             'updated_at' =>date("Y-m-d H:i:s")
                         );
-                        //if (!$cek)DB::table('tb_att')->insert($datanya);
+                        //if (!$cek)DB::table('syn_att')->insert($datanya);
 
                         if ($row[2] =='shift'){
                             array_push($result['shift'], $row[$i]);

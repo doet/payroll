@@ -13,7 +13,7 @@
         </div>
         <div class="profile-info-row">
             <div class="profile-info-name"> Title </div>
-            <div class="profile-info-value">                                    
+            <div class="profile-info-value">
                 <span><?php echo $data->title ?></span>
             </div>
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="profile-info-row">
             <div class="profile-info-name"> Cost Of Sales </div>
-            <div class="profile-info-value">                                    
+            <div class="profile-info-value">
                 <span><?php echo $data->title ?></span>
             </div>
         </div>
@@ -36,9 +36,9 @@
             <div class="profile-info-value">
                 <span><?php echo $data->dept_name ?></span>
             </div>
-        </div>                                              
+        </div>
     </div>
-    
+
     <div>&nbsp;</div>
 
 <!--            -->
@@ -57,15 +57,15 @@
                     </tr>
                     <tr>
                         <th class="center">Mulai</th>
-                        <th class="center">Akhir</th>                        
+                        <th class="center">Akhir</th>
                     </tr>
-                    
+
                 </thead>
 
                 <tbody>
-            <?php 
+            <?php
                 $no=1;
-                foreach ($training as $row) { 
+                foreach ($training as $row) {
             ?>
                     <tr>
                         <td><?php echo $no ?></td>
@@ -76,12 +76,12 @@
                                     <span class="sr-only">Details</span>
                                 </a>
                             </div>
-                        </td>                        
+                        </td>
                         <td><?php echo $row->jenis_training; ?></td>
                         <td><?php echo $row->trainer; ?></td>
                         <td><?php echo $row->nama_training; ?></td>
-                        <td><?php echo $row->tanggal_mulai; ?></td>
-                        <td><?php echo $row->tanggal_akhir; ?></td>
+                        <td><?php echo date('d-m-Y',$row->tanggal_mulai); ?></td>
+                        <td><?php echo date('d-m-Y',$row->tanggal_akhir); ?></td>
                         <td><?php echo $row->status; ?></td>
                     </tr>
                     <tr class="detail-row">
@@ -136,13 +136,13 @@
                             </div>
                         </td>
                     </tr>
-            <?php 
+            <?php
                     $no++;
                 }
                 //echo '<pre>';
                 //print_r($keluarga);
                 //echo '</pre>';
-                if ($training==[]) { 
+                if ($training==[]) {
             ?>
                     <tr>
                         <td>&nbsp;</td>
@@ -155,10 +155,10 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
-            <?php } ?>    
+            <?php } ?>
                 </tbody>
             </table>
-            
+
         </div><!-- /.span -->
     </div><!-- /.row -->
 
@@ -171,14 +171,14 @@
                 var active_class = 'active';
                 $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
                     var th_checked = this.checked;//checkbox inside "TH" table header
-                    
+
                     $(this).closest('table').find('tbody > tr').each(function(){
                         var row = this;
                         if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
                         else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
                     });
                 });
-                
+
                 //select/deselect a row when the checkbox is checked/unchecked
                 $('#simple-table').on('click', 'td input[type=checkbox]' , function(){
                     var $row = $(this).closest('tr');
@@ -186,8 +186,8 @@
                     if(this.checked) $row.addClass(active_class);
                     else $row.removeClass(active_class);
                 });
-            
-                
+
+
                 /***************/
                 $('.show-details-btn').on('click', function(e) {
                     e.preventDefault();
@@ -195,11 +195,11 @@
                     $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
                 });
                 /***************/
-                
-                
-                
-                
-                
+
+
+
+
+
                 /**
                 //add horizontal scrollbars to a simple table
                 $('#simple-table').css({'width':'2000px', 'max-width': 'none'}).wrap('<div style="width: 1000px;" />').parent().ace_scroll(
@@ -211,7 +211,7 @@
                   }
                 ).css('padding-top', '12px');
                 */
-            
-            
+
+
             })
         </script>

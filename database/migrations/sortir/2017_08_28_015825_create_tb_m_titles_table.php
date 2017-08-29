@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSynMTitlesTable extends Migration
+class CreateTbMTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateSynMTitlesTable extends Migration
      */
     public function up()
     {
-      Schema::create('syn_m_title', function (Blueprint $table) {
-          $table->string('title_code',6);
+        Schema::create('tb_m_titles', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('title_code',6)->unique();
           $table->string('title',255)->nullable();
           $table->longText('job_desc')->nullable();
           $table->string('active',1)->default('Y')->nullable();
           $table->string('attachment',255)->nullable();
 
           $table->timestamps();
-      });
+        });
     }
 
     /**
@@ -31,6 +32,6 @@ class CreateSynMTitlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_title');
+        Schema::dropIfExists('tb_m_titles');
     }
 }

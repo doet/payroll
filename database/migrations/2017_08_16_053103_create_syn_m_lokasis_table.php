@@ -13,12 +13,12 @@ class CreateSynMLokasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('syn_m_lokasi', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('loc_code',50)->nullable();
-            $table->string('loc_name',200)->nullable();
+        Schema::create('syn_m_lokasis', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('loc_code',50)->unique();
+          $table->string('loc_name',200)->nullable();
 
-            $table->timestamps();
+          $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateSynMLokasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('syn_m_lokasi');
+        Schema::dropIfExists('syn_m_lokasis');
     }
 }

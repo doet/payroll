@@ -176,10 +176,13 @@
                     for(var i=0; i<gridData.length; i++) {
                         var tgl_keluar = data.rows[i].cell[7];
 
-                        if (tgl_keluar!=null) {
-                            $('#'+rowid[i]).css("background", "pink");;
+                        if (tgl_keluar!=null && tgl_keluar!=0) {
+                          $('#'+rowid[i]).css("background", "pink");
                         //    alert(rowid[i]);
-                        }
+                      } else {
+
+                      }
+
 
                     }
 
@@ -323,8 +326,44 @@
                     alert("pilih tabel")
                 }
             }
+        }).jqGrid('navButtonAdd',pager_selector,{
+            id        : "sync",
+            caption   : "",
+            buttonicon: "ace-icon fa fa-cloud-download red",
+            position  : "last",
+            onClickButton:function(){
+              var postData = {datatb:'tb_karyawans',_token:'{{ csrf_token() }}'};
+              $.ajax({
+                  type: 'POST',
+                  url: "{{url('DataKaryawanSave')}}",
+                  data: postData,
+                  beforeSend:function(){
+                    $('#sync').addClass('ui-state-disabled');
+                    $('#sync > div > span').removeClass('red').addClass('grey');
+                  },
+                  success: function(msg) {
+                    $('#sync').removeClass('ui-state-disabled');
+                    $('#sync > div > span').removeClass('grey').addClass('red');
+
+                      alert(JSON.stringify(msg));
+                      $(grid_selector).trigger( 'reloadGrid' );
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                    $('#sync').removeClass('ui-state-disabled');
+                    $('#sync > div > span').removeClass('grey').addClass('red');
+
+                    //alert(xhr.status);
+                    //alert(thrownError);
+                    //alert(ajaxOptions);
+                  }
+              })
+
+            }
         }).jqGrid('filterToolbar',{stringResult: true, searchOnEnter : false, defaultSearch : "cn", autosearch:true});
+
         $('.ui-search-input > input').addClass('input-sm form-control');
+
+
 
         function style_edit_form(form) {
             //enable datepicker on "sdate" field and switches for "stock" field

@@ -13,16 +13,20 @@ class CreateSynMCostSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('syn_m_cost_sales', function (Blueprint $table) {
-          $table->string('cost_sales_code',5);
-          $table->string('cost_sales',255)->nullable();
-          $table->string('dept_code')->nullable();
-          $table->string('eligible_overtime',1)->default('N')->nullable();
-          $table->string('eligible_tonase',1)->default('Y')->nullable();
-          $table->enum('active', ['Y', 'N'])->default('Y')->nullable();
+      Schema::create('syn_m_cost_sales', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('cost_sales_code',5)->unique();
+        $table->string('cost_sales',255)->nullable();
+        $table->string('dept_code')->nullable();
+        $table->string('eligible_overtime',1)->default('N')->nullable();
+        $table->string('eligible_tonase',1)->default('Y')->nullable();
+        $table->enum('active', ['Y', 'N'])->default('Y')->nullable();
 
-          $table->timestamps();
-        });
+        $table->timestamps();
+
+        $table->foreign('dept_code')->references('dept_code')
+          ->on('syn_m_depts')->onDelete('restrict');
+      });
     }
 
     /**

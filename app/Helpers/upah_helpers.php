@@ -5,31 +5,31 @@ namespace App\Helpers;
 use DB;
 
 class upah_helpers {
-    public static function att($id,$jenis,$waktu) {  
-        $query = DB::table('tb_att')
+    public static function att($id,$jenis,$waktu) {
+        $query = DB::table('tb_atts')
             ->where('payroll_id',$id)
             ->where('jenis',$jenis)
             ->where('tgl',$waktu)
             ->first();
-        if ($query)$nilai = $query->nilai; else $nilai = '';
+        if ($query)$nilai = $query->nilai; else $nilai = 0;
         return  $nilai ;
     }
 
-    public static function att2($id,$jenis,$waktu) {  
-        $query = DB::table('tb_att_lembur')
+    public static function att2($id,$jenis,$waktu) {
+        $query = DB::table('tb_att_lemburs')
             ->where('payroll_id',$id)
             ->where('jenis',$jenis)
             ->where('tgl',$waktu)
             ->first();
-        if ($query)$nilai = $query->nilai; else $nilai = '';
+        if ($query)$nilai = $query->nilai; else $nilai = 0;
         return  $nilai ;
     }
 
-    public static function mkn($id,$waktu) {  
+    public static function mkn($id,$waktu) {
         if (self::att($id,'lembur',$waktu)>=4)$nilai='ya'; else $nilai = '';
         return  $nilai ;
     }
-    public static function mkn2($id,$waktu) {  
+    public static function mkn2($id,$waktu) {
         if (self::att2($id,'lembur',$waktu)>=4)$nilai='ya'; else $nilai = '';
         return  $nilai ;
     }
@@ -47,7 +47,7 @@ class upah_helpers {
         $shift = self::att($id,'shift',$waktu);
         if ($lembur){
             if ($shift=='A/N'){
-                if ($lembur<8) $nilai = 1; else $nilai = 2;            
+                if ($lembur<8) $nilai = 1; else $nilai = 2;
             } else if ($shift=='N/D'){
                 if ($lembur<16) $nilai = 1; else if ($lembur=16) $nilai = 2;
             } else if ($shift=='D/A'){
@@ -67,7 +67,7 @@ class upah_helpers {
         $shift = self::att($id,'shift',$waktu);
         if ($lembur){
             if ($shift=='A/N'){
-                if ($lembur<8) $nilai = 1; else if ($lembur>=8) $nilai = 2;            
+                if ($lembur<8) $nilai = 1; else if ($lembur>=8) $nilai = 2;
             } else if ($shift=='N/D'){
                 if ($lembur<16) $nilai = 1; else if ($lembur=16) $nilai = 2;
             } else if ($shift=='D/A'){
@@ -84,41 +84,42 @@ class upah_helpers {
     }
 
     public static function RekapAbsen($id,$jenis,$start,$end) {
-        $responce['lembur']=$contlembur=$responce['hit']=$responce['mkn']=$responce['trns']=
 
-        $responce['D']=$responce['A']=$responce['N']=$responce['D/A']=$responce['A/N']=$responce['N/D']=$responce['IJ']=$responce['SK']=$responce['CT']=$responce['AL']=
-
+        $responce['lembur']=$contlembur=$responce['hit']=$responce['mkn']=$responce['trns']=$responce['D']=
+        $responce['A']=$responce['N']=$responce['D/A']=$responce['A/N']=$responce['N/D']=$responce['IJ']=$responce['SK']=$responce['CT']=$responce['AL']=
         $responce['lemburoff2']=$responce['hit2']=$responce['mkn2']=0;
 
         for($i=strtotime($start); $i<=strtotime($end); $i=$i+(24*60*60)) {
 
             $responce['lemburoff2']=$responce['lemburoff2']+self::att2($id,'lembur off',$i);
+
             if(self::hit2($id,$i))$responce['hit2']=$responce['hit2']+self::hit2($id,$i);
             if(self::mkn2($id,$i))$responce['mkn2']++;
 
+            $isi = self::att($id,'shift',$i);
+            if ($isi == 'D' && $isi != '0') $responce['D']++;
 
-            if (self::att($id,'shift',$i)=='D') $responce['D']++;
-            if (self::att($id,'shift',$i)=='A') $responce['A']++;
-            if (self::att($id,'shift',$i)=='N') $responce['N']++;
-            if (self::att($id,'shift',$i)=='D/A') $responce['D/A']++;
-            if (self::att($id,'shift',$i)=='A/N') $responce['A/N']++;
-            if (self::att($id,'shift',$i)=='N/D') $responce['N/D']++;
+            if ($isi =='A' && $isi != '0') $responce['A']++;
+            if ($isi =='N' && $isi != '0') $responce['N']++;
+            if ($isi =='D/A' && $isi != '0') $responce['D/A']++;
+            if ($isi =='A/N' && $isi != '0') $responce['A/N']++;
+            if ($isi =='N/D' && $isi != '0') $responce['N/D']++;
 
-            if (self::att($id,'shift',$i)=='IJ') $responce['IJ']++;
-            if (self::att($id,'shift',$i)=='SK') $responce['SK']++;
-            if (self::att($id,'shift',$i)=='CT') $responce['CT']++;
+            if ($isi =='IJ' && $isi != '0') $responce['IJ']++;
+            if ($isi =='SK' && $isi != '0') $responce['SK']++;
+            if ($isi =='CT' && $isi != '0') $responce['CT']++;
 
-            if (self::att($id,'shift',$i)=='AL') $responce['AL']++;
+            if ($isi =='AL' && $isi != '0') $responce['AL']++;
 
             if (self::att($id,'lembur',$i)){
                 $responce['lembur']=$responce['lembur']+self::att($id,'lembur',$i);
                 $contlembur++;
-            }            
-            
+            }
+
             if(self::hit($id,$i))$responce['hit']=$responce['hit']+self::hit($id,$i);
             if(self::mkn($id,$i))$responce['mkn']++;
             if(self::trns($id,$i))$responce['trns']++;
-        } 
+        }
         $responce['hit']=$responce['hit']+$responce['hit2'];
 
         $responce['hk'] = $responce['D']+$responce['A']+$responce['N']+$responce['D/A']+$responce['A/N']+$responce['N/D'];
@@ -133,28 +134,28 @@ class upah_helpers {
         return  $responce;
     }
 
-    public static function upah($id,$jenis,$start) {        
-        $query = DB::table('tb_tunjangan')
+    public static function upah($id,$jenis,$start) {
+        $query = DB::table('tb_tunjangans')
             ->where('payroll_id',$id)
             ->where('jenis',$jenis)
             ->first();
         if ($query)$responce=$query->value; else $responce=0;
         return  $responce ;
     }
-    
-    public static function potong($id,$jenis,$start) {        
-        $query = DB::table('tb_potongan')
+
+    public static function potong($id,$jenis,$start) {
+        $query = DB::table('tb_potongans')
             ->where('payroll_id',$id)
             ->where('jenis',$jenis)
             ->first();
         if ($query)$responce=$query->value; else $responce=0;
         return  $responce ;
     }
-    
+
     public static function slip($id,$start,$end) {
         $responce['makan'] = self::RekapAbsen($id,'',$start,$end)['mkn']*self::upah($id,'makan',$start);
         $responce['transport'] = self::upah($id,'transport',$start)*(self::RekapAbsen($id,'',$start,$end)['hk']+self::RekapAbsen($id,'',$start,$end)['trns']);
-        
+
         $responce['shift'] = self::RekapAbsen($id,'',$start,$end)['shift']*self::upah($id,'shift',$start);
         $responce['lembur'] = self::upah($id,'upahpokok',$start)/173*self::RekapAbsen($id,'',$start,$end)['lembur'];
         $responce['khk'] = '0';
@@ -162,7 +163,7 @@ class upah_helpers {
         $responce['skill'] = self::upah($id,'skill',$start);
         $responce['intensif'] = self::upah($id,'insentif',$start)+self::upah($id,'finsentif',$start);
 
-        $responce['bruto'] = 
+        $responce['bruto'] =
             self::upah($id,'upahpokok',$start)
             +$responce['makan']+$responce['transport']+$responce['shift']+$responce['lembur']+$responce['khk']+$responce['lain']+$responce['skill']+$responce['intensif'];
 
@@ -184,7 +185,7 @@ class upah_helpers {
     }
 
     public static function rekamupah($id,$jenis,$waktu) {
-        $tunjangan[$waktu] = DB::table('tb_tunjangan')->where('payroll_id',$id)
+        $tunjangan[$waktu] = DB::table('tb_tunjangans')->where('payroll_id',$id)
             ->where('jenis',$jenis)
             ->where('berlaku','<=',$waktu)
             ->orderBy('berlaku','desc')
@@ -200,8 +201,8 @@ class upah_helpers {
 
         return $nilai['nilai'];
     }
-    
-    public static function xupah($id_u,$jenis,$waktu) {       
+
+    public static function xupah($id_u,$jenis,$waktu) {
         $nilai= upah::where('jenis',$jenis)
             ->where('id_u',$id_u)
         //    ->where('berlaku','!=','')
@@ -210,8 +211,8 @@ class upah_helpers {
         return $nilai['nilai'];
     }
 
-    public static function rupahx($id_u,$start,$end) {       
-        
+    public static function rupahx($id_u,$start,$end) {
+
         $responce['pokok']      = self::upah($id_u,0,0);
         $responce['honor']      = self::upah($id_u,1,0);
         $responce['perumahan']  = self::upah($id_u,2,0);
@@ -222,7 +223,7 @@ class upah_helpers {
         $responce['um']         = self::upah($id_u,7,0)*self::rabsen($id_u,$start,$end)['hkerja'];
         $responce['tp']         = self::upah($id_u,8,0)*self::rabsen($id_u,$start,$end)['hkerja'];
         $responce['lembur']     = self::upah($id_u,9,0);
-        $responce['cuti']       = self::upah($id_u,10,0);        
+        $responce['cuti']       = self::upah($id_u,10,0);
         $responce['kbl']        = self::upah($id_u,11,0);
         $responce['kendaraan']  = self::upah($id_u,12,0);
         $responce['bbm']        = self::upah($id_u,13,0);
@@ -241,8 +242,8 @@ class upah_helpers {
 
         $responce['bjb']        = self::potongan($id_u,3,0);
         $responce['kendaraan']  = self::potongan($id_u,0,0);
-        $responce['absen']      = self::potongan($id_u,2,0); 
-        $responce['pph21']      = self::potongan($id_u,1,0); 
+        $responce['absen']      = self::potongan($id_u,2,0);
+        $responce['pph21']      = self::potongan($id_u,1,0);
         $responce['lbl']        = self::potongan($id_u,4,0);
 
         $responce['sp'] = $responce['bjb']+$responce['kendaraan']+$responce['absen']+$responce['pph21']+$responce['lbl']+
@@ -254,9 +255,9 @@ class upah_helpers {
         return $responce;
     }
 
-   
-    
-    
+
+
+
     public static function koperasi($id_u,$jenis,$waktu) {
         $nilai= koperasi::where('jenis',$jenis)
             ->where('id_u',$id_u)
@@ -265,7 +266,7 @@ class upah_helpers {
 
         return $nilai['nilai'];
     }
-    public static function pkoperasi($id_u,$waktu) {    
+    public static function pkoperasi($id_u,$waktu) {
         $waktu=date('d F Y');
 
         $koperasi=pkoperasi::where('id_u',$id_u)
@@ -273,7 +274,7 @@ class upah_helpers {
             ->first();
         if ($koperasi){
             $responce['selisih']=AppHelpers::selisihhbt(date('d F Y',$koperasi['tglapp']),$waktu,'month');
-                       
+
             $responce['stenor']=$koperasi['tenor']-$responce['selisih'];
             if ($responce['stenor']<0)$responce['stenor']=0;
 
@@ -282,12 +283,12 @@ class upah_helpers {
         } else {
             $responce['angsur']=0;
         }
-    
+
         return  $responce;
     }
-    public static function tkoperasi($id_u,$waktu) {    
+    public static function tkoperasi($id_u,$waktu) {
         $waktu=date('d F Y');
-            
+
         $responce['pokok']      = self::koperasi($id_u,0,0);
         $responce['wajib']      = self::koperasi($id_u,1,0);
         $responce['sukarela']   = self::koperasi($id_u,2,0);
@@ -296,17 +297,17 @@ class upah_helpers {
         $responce['angsur']     = self::pkoperasi($id_u,'')['angsur'];
 
         $responce['total'] = $responce['pokok']+$responce['wajib']+$responce['sukarela']+$responce['mppa']+$responce['el']+$responce['angsur'];
-    
+
         return  $responce;
     }
-    
+
     public static function baziz($id_u) {
         $upah= self::upah($id_u,0,0)+self::upah($id_u,1,0);
-        
+
         $responce['total'] = $upah*(2.5/100);
         return  $responce;
     }
-    
+
     public static function dplk($id_u) {
         $gajipokok= self::upah($id_u,0,0)+self::upah($id_u,1,0);
         $responce['dplk']=$gajipokok*(15/100);
@@ -325,8 +326,8 @@ class upah_helpers {
         $responce['jpp']        = $responce['ttunjangan']*(2/100);
 
         $responce['karyawan']=$responce['jhtk']+$responce['jpk'];
-        
-        $responce['tbpjskk']    = 
+
+        $responce['tbpjskk']    =
             $responce['jkm']+
             $responce['jkk']+
             $responce['jhtk']+
@@ -348,13 +349,13 @@ class upah_helpers {
 
         return  $responce;
     }
-    
+
     //Rawat Jalan
     public static function sisaRj($id_u,$tgl) {
         $platform = mrawatjalan::where('id_u', '=', $id_u)
             ->where('platform', 'like', date('y',$tgl).'/%')
             ->first();
-        $query2 = mrawatjalan2::where('id_u', '=', $id_u)      
+        $query2 = mrawatjalan2::where('id_u', '=', $id_u)
             ->where('tgldoc', '<', $tgl)
             ->where('no', 'like', date('y',$tgl).'/%')
             ->get();
@@ -362,10 +363,10 @@ class upah_helpers {
         foreach($query2 as $row2) {
             $total=($row2->debit+$total);
         }
-        
+
         $responce['platform'] = AppHelpers::extractNilai($platform['platform'])['n1'];
         $responce['total'] = AppHelpers::extractNilai($platform['platform'])['n1']-$total;
-        
+
         return  $responce;
     }
 
@@ -374,7 +375,7 @@ class upah_helpers {
         $jatah = fasilitas::where('id_u', '=', $id_u)
             ->where('cutitahun', 'like', date('y',$tgl).'/%')
             ->first();
-        $query2 = cuti::where('tb_cuti.id_u', '=', $id_u)      
+        $query2 = cuti::where('tb_cuti.id_u', '=', $id_u)
             ->join('tbl_datapegawai','tb_cuti.id_u', '=', 'tbl_datapegawai.id')
             ->where('tb_cuti.sdate', '<=', $tgl)
             ->where('tb_cuti.no', 'like', date('y',$tgl).'/%')
@@ -384,16 +385,16 @@ class upah_helpers {
         foreach($query2 as $row) {
             if ($row->wkerja == 0){
                 $jmlct = AppHelpers::hitungcuti(date('d-m-Y', $row->sdate),date('d-m-Y', $row->edate),'-');
-            } else if($row->wkerja == 1){                     
+            } else if($row->wkerja == 1){
                 $jmlct = AppHelpers::hitungcutishift(date('d-m-Y', $row->sdate),date('d-m-Y', $row->edate),'-',Auth::id());
             }
             $total = $jmlct+$total;
-        }        
-        
+        }
+
         $responce['jatah'] = AppHelpers::extractNilai($jatah['cutitahun'])['n1'];
         $responce['pakai'] = $jmlct;
         $responce['total'] = AppHelpers::extractNilai($jatah['cutitahun'])['n1']-$total;
-        
+
         return  $responce;
     }
 

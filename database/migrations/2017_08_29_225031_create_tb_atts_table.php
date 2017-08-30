@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTbPotongansTable extends Migration
+class CreateTbAttsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTbPotongansTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_potongans', function (Blueprint $table) {
+        Schema::create('tb_atts', function (Blueprint $table) {
           $table->increments('id');
           $table->string('payroll_id',30);
           $table->string('jenis',20);
-          $table->string('value',20)->nullable();
-          $table->integer('berlaku');
+          $table->string('nilai',20)->nullable();
+          $table->string('tgl',20);
+
           $table->timestamps();
 
           $table->foreign('payroll_id')->references('payroll_id')
@@ -33,6 +34,6 @@ class CreateTbPotongansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_potongans');
+        Schema::dropIfExists('tb_atts');
     }
 }

@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name"> Status </div>
+                                <div class="profile-info-name"> Marital Status </div>
                                 <div class="profile-info-value">
                                     <span><?php echo $data->marital_status ?></span>
                                 </div>

@@ -11,25 +11,27 @@ class syncdb_helpers {
 
     if (array_key_exists('removeitems',$option))  $cn = self::removearray($cn,$option['removeitems']);
     if (array_key_exists('replace',$option))      $cn = self::replacearray($cn,$option['replace']);
-
+    //dd($cn);
     //if (in_array($header[$i],$cn)){}
     //$option['replace'] ;
     $i=0;
     foreach ($db2 as $key => $value) {
-      $cek =  DB::table($target)->where(function ($qy) use ($option,$db2,$key,$cn) {
-        if (array_key_exists('where',$option)) {
-          foreach ($option['where'] as $item) {
+      $cek =  DB::table($target)
+        ->where(function ($qy) use ($option,$db2,$key,$cn) {
+          if (array_key_exists('where',$option)) {
+            foreach ($option['where'] as $item) {
 
-            if(is_array($item)){
-              foreach ($item as $row => $val) {
-                $qy->where($row, $val);
+              if(is_array($item)){
+                foreach ($item as $row => $val) {
+                  $qy->where($row, $val);
+                }
+              } else {
+                $qy->where($item, $db2[$key]->$item);
               }
-            } else {
-              $qy->where($item, $db2[$key]->$item);
             }
           }
-        }
-      })->first();
+        })
+        ->first();
 
       foreach ($cn as $colum) {
         if (empty($db2[$key]->$colum))$db2[$key]->$colum=null;

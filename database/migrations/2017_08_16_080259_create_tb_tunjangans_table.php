@@ -13,7 +13,7 @@ class CreateTbTunjangansTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_tunjangan', function (Blueprint $table) {
+        Schema::create('tb_tunjangans', function (Blueprint $table) {
           $table->increments('id');
           $table->string('payroll_id',30);
           $table->string('jenis',20);
@@ -33,6 +33,6 @@ class CreateTbTunjangansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_tunjangan');
+        Schema::dropIfExists('tb_tunjangans');
     }
 }

@@ -360,28 +360,28 @@ class AttCrudController extends Controller
 
 
                                     if (strpos($fname, 'normal') == true){
-                                        $cek = DB::table('syn_att')
+                                        $cek = DB::table('tb_atts')
                                             ->where('payroll_id',$row[0])
                                             ->where('jenis',$row[2])
                                             ->where('tgl',strtotime($tgl[$i]))
                                             ->first();
 
                                         if(!$cek) {
-                                            if($row[$i])DB::table('syn_att')->insert($datanya);
+                                            if($row[$i])DB::table('tb_atts')->insert($datanya);
                                         } else if ($cek->nilai != $row[$i]) {
-                                            DB::table('syn_att')->where('id',$cek->id)->update($datanya);
+                                            DB::table('tb_atts')->where('id',$cek->id)->update($datanya);
                                         }
                                     } else if (strpos($fname, 'lembur') == true){
-                                        $cek = DB::table('syn_att_lembur')
+                                        $cek = DB::table('tb_att_lemburs')
                                             ->where('payroll_id',$row[0])
                                             ->where('jenis',$row[2])
                                             ->where('tgl',strtotime($tgl[$i]))
                                             ->first();
 
                                         if(!$cek) {
-                                            if($row[$i])DB::table('syn_att_lembur')->insert($datanya);
+                                            if($row[$i])DB::table('tb_att_lemburs')->insert($datanya);
                                         } else if ($cek->nilai != $row[$i]) {
-                                            DB::table('syn_att_lembur')->where('id',$cek->id)->update($datanya);
+                                            DB::table('tb_att_lemburs')->where('id',$cek->id)->update($datanya);
                                         }
                                     }
                                 }

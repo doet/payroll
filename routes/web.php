@@ -47,18 +47,19 @@ Route::match(['get', 'post'],   'DataKaryawanJqgrid',		'DataKaryawanCrudControll
 Route::match(['get', 'post'],   'DataKaryawanSave',			'DataKaryawanCrudController@save');
 Route::match(['get', 'post'],   'DataKaryawanJson',			'DataKaryawanCrudController@json');
 
-Route::get('uploadfiles',      'FilesController@files');
-
-Route::match(['get', 'post'],   'FilesJson',					'FilesCrudController@json');
-Route::match(['get', 'post'],   'FilesSave',					'FilesCrudController@save');
-
 Route::get('file',              'AttController@file');
 Route::get('absenhkot',					'AttController@absenhkot');
 
 Route::match(['get', 'post'],   'AttJson',					'AttCrudController@json');
 Route::match(['get', 'post'],   'AttSave',					'AttCrudController@save');
 
-Route::get('rupah',             'PayrollController@rupah');
+Route::get('uploadfiles',      'FilesController@files');
+
+Route::match(['get', 'post'],   'FilesJson',					'FilesCrudController@json');
+Route::match(['get', 'post'],   'FilesSave',					'FilesCrudController@save');
+
+
+Route::get('Rekap Upah',             'PayrollController@rupah');
 
 Route::match(['get', 'post'],   'PayrollJqgrid',			'PayrollCrudController@jqgrid');
 Route::match(['get', 'post'],   'PayrollSave',				'PayrollCrudController@save');

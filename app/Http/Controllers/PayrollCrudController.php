@@ -42,8 +42,6 @@ class PayrollCrudController extends Controller
         $sord = $request->input('sord', 'asc');
         $sdate = $request->input('start');
         $edate = $request->input('end');
-$sdate='16 Dec 2016';
-$edate='15 Jan 2017';
 
     // Menentukan Jumlah Query //
         switch ($datatb) {
@@ -61,7 +59,7 @@ $edate='15 Jan 2017';
                 }
 
                 $sidx = $request->input('sidx', 'payroll_id');
-                $count = DB::table('syn_m_karyawan')->where($cari,$cari2,$value)->count();
+                $count = DB::table('syn_m_karyawans')->where($cari,$cari2,$value)->count();
             break;
         }
 
@@ -84,15 +82,15 @@ $edate='15 Jan 2017';
     // Mengambil Nilai Query //
         switch ($datatb) {
             case 'upah':   // Vaariabel Master
-                $query = DB::table('syn_m_karyawan')->where($cari,$cari2,$value)
-                    ->leftJoin('syn_m_dept','syn_m_dept.dept_code','syn_m_karyawan.dept_id')
-                    ->leftJoin('syn_m_division','syn_m_division.div_code','syn_m_karyawan.div_id')
-                    ->leftJoin('syn_m_title','syn_m_title.title_code','syn_m_karyawan.title')
-                    ->leftJoin('syn_m_lokasi','syn_m_lokasi.loc_code','syn_m_karyawan.lokasi')
+                $query = DB::table('syn_m_karyawans')->where($cari,$cari2,$value)
+                    ->leftJoin('syn_m_depts','syn_m_depts.dept_code','syn_m_karyawans.dept_id')
+                    ->leftJoin('syn_m_divisions','syn_m_divisions.div_code','syn_m_karyawans.div_id')
+                    ->leftJoin('syn_m_titles','syn_m_titles.title_code','syn_m_karyawans.title')
+                    ->leftJoin('syn_m_lokasis','syn_m_lokasis.loc_code','syn_m_karyawans.lokasi')
                     ->orderBy('tgl_keluar', 'asc')
                     ->orderBy($sidx, $sord)
                     ->skip($start)->take($limit)
-                    ->get(array('syn_m_karyawan.*','syn_m_dept.dept_name','syn_m_division.div_name','syn_m_title.title as title_name','syn_m_lokasi.loc_name') );
+                    ->get(array('syn_m_karyawans.*','syn_m_depts.dept_name','syn_m_divisions.div_name','syn_m_titles.title as title_name','syn_m_lokasis.loc_name') );
 
             break;
         }
@@ -101,12 +99,12 @@ $edate='15 Jan 2017';
         foreach($query as $row) {
             switch ($datatb) {
                 case 'upah':   // Variabel Master
-                    $tjpokok = 3078057;
-                    $tjprestasi= 0;
-                    $um=10000;
-                    $tp=7000;
-                    $shift=5000;
-                    $lembur=$tjpokok/173*1;
+                    //$tjpokok = 3078057;
+                    //$tjprestasi= 0;
+                    //$um=10000;
+                    //$tp=7000;
+                    //$shift=5000;
+                    //$lembur=$tjpokok/173*1;
 
                     $responce['rows'][$i]['id'] = $row->id;
                     $responce['rows'][$i]['cell'] = array(
@@ -114,9 +112,9 @@ $edate='15 Jan 2017';
                         $row->nama_karyawan,
                         upah_helpers::RekapAbsen($row->payroll_id,'',$sdate,$edate)['hk'],
                         upah_helpers::upah($row->payroll_id,'upahpokok',$start),
-                        $tjprestasi,
+                        //$tjprestasi,
                         //upah_helpers::RekapAbsen($row->payroll_id,'lembur',0,0)['mk'],
-                        $lembur
+                        //$lembur
 
 
                     );
@@ -139,7 +137,7 @@ $edate='15 Jan 2017';
                 $tmp=array();
                 $jenis=array();
 
-                $grouptunjangan = DB::table('syn_tunjangan')
+                $grouptunjangan = DB::table('tb_tunjangans')
                   ->where('berlaku','<=',strtotime($request->input('setdate')))
                   ->orderBy('berlaku','desc')
                   ->get();
@@ -155,7 +153,7 @@ $edate='15 Jan 2017';
                 //     'upahpokok','upahharian','tkontribusi','tprestasi','makan','transport','trelokasi','tjabatan','tkomunikasi','finsentif','skill','shift','insentif');
 
                 foreach ($jenistunjangan as $key ) {
-                  $tunjangan = DB::table('syn_tunjangan')
+                  $tunjangan = DB::table('tb_tunjangan')
                     ->where('payroll_id',$id)
                     ->where('jenis',$key)
                     ->where('berlaku','<=',strtotime($request->input('setdate')))
@@ -232,7 +230,7 @@ $edate='15 Jan 2017';
         $id = $request->input('id');
 
         switch ($datatb) {
-            case 'datagaji':            
+            case 'datagaji':
                 $setdate=strtotime($request->input('setdate'));
                 foreach($request->get('dgaji') as $key=>$value){
                     $datanya=array(
@@ -242,7 +240,7 @@ $edate='15 Jan 2017';
                         'berlaku' => $setdate,
                         'updated_at' =>date("Y-m-d H:i:s")
                     );
-                    $tunjangan = DB::table('syn_tunjangan')
+                    $tunjangan = DB::table('tb_m_karyawans')
                         ->where('payroll_id',$request->input('payroll_id'))
                         ->where('berlaku','<=',$setdate)
                         ->where('jenis',str_replace("'","", $key))
@@ -250,12 +248,12 @@ $edate='15 Jan 2017';
                         //->where('berlaku',strtotime($request->input('setdate')))
                         ->first();
                     if (!$tunjangan){
-                        DB::table('syn_tunjangan')->insert($datanya);
+                        DB::table('tb_m_karyawans')->insert($datanya);
                     } else {
                         if ($tunjangan->berlaku == $setdate AND $tunjangan->value != $value) {
-                            DB::table('syn_tunjangan')->where('id', $tunjangan->id)->update($datanya);
+                            DB::table('tb_m_karyawans')->where('id', $tunjangan->id)->update($datanya);
                         } else if ($tunjangan->berlaku != $setdate AND $tunjangan->value != $value) {
-                            DB::table('syn_tunjangan')->insert($datanya);
+                            DB::table('tb_m_karyawans')->insert($datanya);
                         }
                     }
                 }

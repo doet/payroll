@@ -233,9 +233,9 @@ class DataKaryawanCrudController extends Controller
           // $syn_titles['where']        = array('title_code');
           // $msg = syncdb_helpers::sync('syn_m_title','syn_m_titles',$syn_titles);
 
-          // $syn_m_directorats['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_directorats['where']        = array('dir_code');
-          // $msg = syncdb_helpers::sync('syn_m_directorat','syn_m_directorats',$syn_m_directorats);
+          $syn_m_directorats['removeitems']  = array('created_at','updated_at','id');
+          $syn_m_directorats['where']        = array('dir_code');
+          $msg = syncdb_helpers::sync('syn_m_directorat','syn_m_directorats',$syn_m_directorats);
 
           // $syn_m_divisions['removeitems']  = array('created_at','updated_at','id');
           // $syn_m_divisions['where']        = array('div_code');
@@ -288,10 +288,10 @@ class DataKaryawanCrudController extends Controller
           // $syn_trans_training_details['tanggal']      = array('tanggal_mulai','tanggal_akhir');
           // $msg = syncdb_helpers::sync('syn_trans_training_detail','syn_trans_training_details',$syn_trans_training_details);
 
-          $sys_trans_warnings['removeitems']  = array('created_at','updated_at','id');
-          $sys_trans_warnings['where']        = array('id');
-          $sys_trans_warnings['tanggal']      = array('date','date_incident','due_date');
-          $msg = syncdb_helpers::sync('sys_trans_warning','sys_trans_warnings',$sys_trans_warnings);
+          // $sys_trans_warnings['removeitems']  = array('created_at','updated_at','id');
+          // $sys_trans_warnings['where']        = array('payroll_id','document_no');
+          // $sys_trans_warnings['tanggal']      = array('date','date_incident','due_date');
+          // $msg = syncdb_helpers::sync('sys_trans_warning','sys_trans_warnings',$sys_trans_warnings);
 
 
 

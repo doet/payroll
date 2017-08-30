@@ -95,25 +95,25 @@ class SubDataKaryawanController extends Controller
     }
     public function rekamgaji($e){
         $data = DB::table('syn_m_karyawans')->where('syn_m_karyawans.id',$e)
-            ->leftJoin('syn_m_title','syn_m_title.title_code','syn_m_karyawans.title')
-            ->leftJoin('syn_m_dept','syn_m_dept.dept_code','syn_m_karyawans.dept_id')
-            ->leftJoin('syn_m_division','syn_m_division.div_code','syn_m_karyawans.div_id')
-            ->leftJoin('syn_m_directorat','syn_m_directorat.dir_code','syn_m_karyawans.dir_id')
+            ->leftJoin('syn_m_titles','syn_m_titles.title_code','syn_m_karyawans.title')
+            ->leftJoin('syn_m_depts','syn_m_depts.dept_code','syn_m_karyawans.dept_id')
+            ->leftJoin('syn_m_divisions','syn_m_divisions.div_code','syn_m_karyawans.div_id')
+            ->leftJoin('syn_m_directorats','syn_m_directorats.dir_code','syn_m_karyawans.dir_id')
             ->first();
-        $bina = DB::table('sys_trans_warning')->where('sys_trans_warning.payroll_id',$data->payroll_id)
+        $bina = DB::table('sys_trans_warnings')->where('sys_trans_warnings.payroll_id',$data->payroll_id)
             ->get();
 
         return view('backend.subdatakaryawan.rekamgaji',compact('data','bina'));
     }
     public function rekamperubahan($e){
         $data = DB::table('syn_m_karyawans')->where('syn_m_karyawans.id',$e)
-            ->leftJoin('syn_m_title','syn_m_title.title_code','syn_m_karyawans.title')
-            ->leftJoin('syn_m_dept','syn_m_dept.dept_code','syn_m_karyawans.dept_id')
-            ->leftJoin('syn_m_division','syn_m_division.div_code','syn_m_karyawans.div_id')
-            ->leftJoin('syn_m_directorat','syn_m_directorat.dir_code','syn_m_karyawans.dir_id')
+            ->leftJoin('syn_m_titles','syn_m_titles.title_code','syn_m_karyawans.title')
+            ->leftJoin('syn_m_depts','syn_m_depts.dept_code','syn_m_karyawans.dept_id')
+            ->leftJoin('syn_m_divisions','syn_m_divisions.div_code','syn_m_karyawans.div_id')
+            ->leftJoin('syn_m_directorats','syn_m_directorats.dir_code','syn_m_karyawans.dir_id')
             ->first();
-        $keluarga = DB::table('syn_m_keluarga')->where('syn_m_keluarga.no_kk',$data->no_kk)
-            ->leftJoin('syn_m_relasi','syn_m_relasi.code','syn_m_keluarga.hubungan')
+        $keluarga = DB::table('syn_m_keluargas')->where('syn_m_keluargas.no_kk',$data->no_kk)
+            ->leftJoin('syn_m_relases','syn_m_relases.code','syn_m_keluargas.hubungan')
             ->get();
 
 

@@ -276,7 +276,7 @@ class FilesCrudController extends Controller
                             );
 
                             // cek jika data sudah ada
-                            if (strpos($fname,"benefit") != false) $table='syn_tunjangan'; else $table='syn_potongan';
+                            if (strpos($fname,"benefit") != false) $table='tb_tunjangans'; else $table='syn_potongan';
 
                             $cek = DB::table($table)
                               ->where('payroll_id',$fillfield)

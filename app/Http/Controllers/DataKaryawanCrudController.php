@@ -229,69 +229,39 @@ class DataKaryawanCrudController extends Controller
       $datatb = $request->input('datatb','');
       switch ($datatb) {
         case 'tb_karyawans';
-          // $syn_titles['removeitems']  = array('created_at','updated_at','id');
-          // $syn_titles['where']        = array('title_code');
-          // $msg = syncdb_helpers::sync('syn_m_title','syn_m_titles',$syn_titles);
 
-          $syn_m_directorats['removeitems']  = array('created_at','updated_at','id');
-          $syn_m_directorats['where']        = array('dir_code');
-          $msg = syncdb_helpers::sync('syn_m_directorat','syn_m_directorats',$syn_m_directorats);
 
-          // $syn_m_divisions['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_divisions['where']        = array('div_code');
-          // $msg = syncdb_helpers::sync('syn_m_division','syn_m_divisions',$syn_m_divisions);
+          $syn_karyawans['removeitems']  = array('created_at','updated_at','id');
+          $syn_karyawans['where']        = array('payroll_id');
+          $syn_karyawans['tanggal']      = array(
+            'tgl_lahir','tgl_masuk','tgl_keluar','tgl_finish_contract','id_customer_expiredate',
+            'no_ktp_expiredate','no_sim_a_expiredate','no_sim_b1_expiredate','no_sim_b2_umum_expiredate',
+            'no_sim_c_expiredate','married_date','npwp_effectivedate','agreement_expire');
+          $msg = syncdb_helpers::sync('syn_m_karyawan','syn_m_karyawans',$syn_karyawans);
 
-          // $syn_m_depts['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_depts['where']        = array('dept_code');
-          // $msg = syncdb_helpers::sync('syn_m_dept','syn_m_depts',$syn_m_depts);
+          $syn_m_relases['removeitems']  = array('created_at','updated_at','id');
+          $syn_m_relases['where']        = array('code');
+          $msg = syncdb_helpers::sync('syn_m_relasi','syn_m_relases',$syn_m_relases);
 
-          // $syn_m_grades['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_grades['where']        = array('grade_code');
-          // $msg = syncdb_helpers::sync('syn_m_grade','syn_m_grades',$syn_m_grades);
+          $syn_karyawans['removeitems']  = array('created_at','updated_at','id');
+          $syn_karyawans['where']        = array('id');
+          $syn_karyawans['tanggal']      = array('tgl_lahir');
+          $msg = syncdb_helpers::sync('syn_m_keluarga','syn_m_keluargas',$syn_karyawans);
 
-          // $syn_m_levels['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_levels['where']        = array('level_code');
-          // $msg = syncdb_helpers::sync('syn_m_level','syn_m_levels',$syn_m_levels);
+          $syn_trans_training_headers['removeitems']  = array('created_at','updated_at');
+          $syn_trans_training_headers['where']        = array('id');
+          $syn_trans_training_headers['tanggal']      = array('tanggal_mulai','tanggal_akhir','tanggal_rencana');
+          $msg = syncdb_helpers::sync('syn_trans_training_header','syn_trans_training_headers',$syn_trans_training_headers);
 
-          // $syn_m_cost_sales['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_cost_sales['where']        = array('cost_sales_code');
-          // $msg = syncdb_helpers::sync('syn_m_cost_sales','syn_m_cost_sales',$syn_m_cost_sales);
+          $syn_trans_training_details['removeitems']  = array('created_at','updated_at','id');
+          $syn_trans_training_details['where']        = array('id');
+          $syn_trans_training_details['tanggal']      = array('tanggal_mulai','tanggal_akhir');
+          $msg = syncdb_helpers::sync('syn_trans_training_detail','syn_trans_training_details',$syn_trans_training_details);
 
-          // $syn_m_lokasis['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_lokasis['where']        = array('loc_code');
-          // $msg = syncdb_helpers::sync('syn_m_lokasi','syn_m_lokasis',$syn_m_lokasis);
-
-          // $syn_karyawans['removeitems']  = array('created_at','updated_at','id');
-          // $syn_karyawans['where']        = array('payroll_id');
-          // $syn_karyawans['tanggal']      = array(
-          //   'tgl_lahir','tgl_masuk','tgl_keluar','tgl_finish_contract','id_customer_expiredate',
-          //   'no_ktp_expiredate','no_sim_a_expiredate','no_sim_b1_expiredate','no_sim_b2_umum_expiredate',
-          //   'no_sim_c_expiredate','married_date','npwp_effectivedate','agreement_expire');
-          // $msg = syncdb_helpers::sync('syn_m_karyawan','syn_m_karyawans',$syn_karyawans);
-
-          // $syn_m_relases['removeitems']  = array('created_at','updated_at','id');
-          // $syn_m_relases['where']        = array('code');
-          // $msg = syncdb_helpers::sync('syn_m_relasi','syn_m_relases',$syn_m_relases);
-
-          // $syn_karyawans['removeitems']  = array('created_at','updated_at','id');
-          // $syn_karyawans['where']        = array('id');
-          // $syn_karyawans['tanggal']      = array('tgl_lahir');
-          // $msg = syncdb_helpers::sync('syn_m_keluarga','syn_m_keluargas',$syn_karyawans);
-
-          // $syn_trans_training_headers['removeitems']  = array('created_at','updated_at');
-          // $syn_trans_training_headers['where']        = array('id');
-          // $syn_trans_training_headers['tanggal']      = array('tanggal_mulai','tanggal_akhir','tanggal_rencana');
-          // $msg = syncdb_helpers::sync('syn_trans_training_header','syn_trans_training_headers',$syn_trans_training_headers);
-
-          // $syn_trans_training_details['removeitems']  = array('created_at','updated_at','id');
-          // $syn_trans_training_details['where']        = array('id');
-          // $syn_trans_training_details['tanggal']      = array('tanggal_mulai','tanggal_akhir');
-          // $msg = syncdb_helpers::sync('syn_trans_training_detail','syn_trans_training_details',$syn_trans_training_details);
-
-          // $sys_trans_warnings['removeitems']  = array('created_at','updated_at','id');
-          // $sys_trans_warnings['where']        = array('payroll_id','document_no');
-          // $sys_trans_warnings['tanggal']      = array('date','date_incident','due_date');
-          // $msg = syncdb_helpers::sync('sys_trans_warning','sys_trans_warnings',$sys_trans_warnings);
+          $sys_trans_warnings['removeitems']  = array('created_at','updated_at','id');
+          $sys_trans_warnings['where']        = array('payroll_id','document_no');
+          $sys_trans_warnings['tanggal']      = array('date','date_incident','due_date');
+          $msg = syncdb_helpers::sync('sys_trans_warning','sys_trans_warnings',$sys_trans_warnings);
 
 
 

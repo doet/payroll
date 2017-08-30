@@ -203,19 +203,34 @@
                         form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
                     }
                 }).jqGrid('navButtonAdd',pager_selector,{
-                    caption:"",
-                    buttonicon:"ace-icon fa fa-cloud-download red",
-                    position:"last",
+                    id        : "sync",
+                    caption   : "",
+                    buttonicon: "ace-icon fa fa-cloud-download red",
+                    position  : "last",
                     onClickButton:function(){
-                      var postData = {datatb:'parameter',_token:'{{ csrf_token() }}'};
+                      var postData = {datatb:'syn',_token:'{{ csrf_token() }}'};
                       $.ajax({
                           type: 'POST',
                           url: "{{url('MasterParameterSave')}}",
                           data: postData,
-                          beforeSend:function(){},
+                          beforeSend:function(){
+                            $('#sync').addClass('ui-state-disabled');
+                            $('#sync > div > span').removeClass('red').addClass('grey');
+                          },
                           success: function(msg) {
+                            $('#sync').removeClass('ui-state-disabled');
+                            $('#sync > div > span').removeClass('grey').addClass('red');
+
                               alert(JSON.stringify(msg));
                               $(grid_selector).trigger( 'reloadGrid' );
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                            $('#sync').removeClass('ui-state-disabled');
+                            $('#sync > div > span').removeClass('grey').addClass('red');
+
+                            //alert(xhr.status);
+                            //alert(thrownError);
+                            //alert(ajaxOptions);
                           }
                       })
 

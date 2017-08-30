@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 
 use App\menuadmin;
+USE App\Helpers\syncdb_helpers;
 
 use DB;
 use Auth;
@@ -251,6 +252,42 @@ class MasterParameterCrudController extends Controller
                   'updated_at' =>date("Y-m-d H:i:s")
               );
               return $response;
+
+            break;
+            case 'syn':
+              $syn_titles['removeitems']  = array('created_at','updated_at','id');
+              $syn_titles['where']        = array('title_code');
+              $msg = syncdb_helpers::sync('syn_m_title','syn_m_titles',$syn_titles);
+
+              $syn_m_directorats['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_directorats['where']        = array('dir_code');
+              $msg = syncdb_helpers::sync('syn_m_directorat','syn_m_directorats',$syn_m_directorats);
+
+              $syn_m_divisions['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_divisions['where']        = array('div_code');
+              $msg = syncdb_helpers::sync('syn_m_division','syn_m_divisions',$syn_m_divisions);
+
+              $syn_m_depts['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_depts['where']        = array('dept_code');
+              $msg = syncdb_helpers::sync('syn_m_dept','syn_m_depts',$syn_m_depts);
+
+              $syn_m_grades['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_grades['where']        = array('grade_code');
+              $msg = syncdb_helpers::sync('syn_m_grade','syn_m_grades',$syn_m_grades);
+
+              $syn_m_levels['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_levels['where']        = array('level_code');
+              $msg = syncdb_helpers::sync('syn_m_level','syn_m_levels',$syn_m_levels);
+
+              $syn_m_cost_sales['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_cost_sales['where']        = array('cost_sales_code');
+              $msg = syncdb_helpers::sync('syn_m_cost_sales','syn_m_cost_sales',$syn_m_cost_sales);
+
+              $syn_m_lokasis['removeitems']  = array('created_at','updated_at','id');
+              $syn_m_lokasis['where']        = array('loc_code');
+              $msg = syncdb_helpers::sync('syn_m_lokasi','syn_m_lokasis',$syn_m_lokasis);
+              return $msg;
+
             break;
 
         }

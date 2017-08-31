@@ -18,7 +18,7 @@ class CreateTbTunjangansTable extends Migration
           $table->string('payroll_id',30);
           $table->string('jenis',20);
           $table->string('value',20)->nullable();
-          $table->integer('berlaku');
+          $table->bigInteger('berlaku');
           $table->timestamps();
 
           $table->foreign('payroll_id')->references('payroll_id')

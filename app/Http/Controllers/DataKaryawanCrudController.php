@@ -230,7 +230,6 @@ class DataKaryawanCrudController extends Controller
       switch ($datatb) {
         case 'tb_karyawans';
 
-
           $syn_karyawans['removeitems']  = array('created_at','updated_at','id');
           $syn_karyawans['where']        = array('payroll_id');
           $syn_karyawans['tanggal']      = array(

@@ -21,9 +21,9 @@ class CreateSysTransWarningsTable extends Migration
           $table->string('action_type',200)->nullable();
           $table->string('action_description',200)->nullable();
           $table->text('remarks')->nullable();
-          $table->integer('date')->nullable();
-          $table->integer('date_incident')->nullable();
-          $table->integer('due_date')->nullable();
+          $table->bigInteger('date')->nullable();
+          $table->bigInteger('date_incident')->nullable();
+          $table->bigInteger('due_date')->nullable();
           $table->string('attachment',255)->nullable();
           $table->string('status',200)->nullable();
           $table->dateTime('date_created')->nullable();

@@ -20,7 +20,7 @@ class CreateSynMKeluargasTable extends Migration
             $table->string('hubungan',50)->nullable();
             $table->enum('jenis_kelamin',['MALE', 'FEMALE'])->nullable();
             $table->string('tempat_lahir',45)->nullable();
-            $table->integer('tgl_lahir')->nullable();
+            $table->bigInteger('tgl_lahir')->nullable();
             $table->string('no_ktp',45)->nullable();
             $table->string('pendidikan',100)->nullable();
             $table->string('pekerjaan',100)->nullable();

@@ -29,37 +29,37 @@ class CreateSynMKaryawansTable extends Migration
             $table->string('status',20)->nullable();
             $table->string('tempat_lahir',100)->nullable();
 
-            $table->integer('tgl_lahir')->nullable();
-            $table->integer('tgl_masuk')->nullable();
+            $table->bigInteger('tgl_lahir')->nullable();
+            $table->bigInteger('tgl_masuk')->nullable();
             $table->string('reason_in',200)->nullable();
-            $table->integer('tgl_keluar')->nullable();
+            $table->bigInteger('tgl_keluar')->nullable();
             $table->string('reason_out',200)->nullable();
-            $table->integer('tgl_finish_contract')->nullable();
+            $table->bigInteger('tgl_finish_contract')->nullable();
             $table->string('nama_customer',45)->nullable();
             $table->string('id_customer',35)->nullable();
-            $table->integer('id_customer_expiredate')->nullable();
+            $table->bigInteger('id_customer_expiredate')->nullable();
             $table->string('id_driver',30)->nullable();
             $table->string('no_kk',30)->nullable();
 
             $table->string('no_ktp',30)->nullable();
-            $table->integer('no_ktp_expiredate')->nullable();
+            $table->bigInteger('no_ktp_expiredate')->nullable();
 
             $table->string('no_sim_a',30)->nullable();
-            $table->integer('no_sim_a_expiredate')->nullable();
+            $table->bigInteger('no_sim_a_expiredate')->nullable();
 
             $table->string('no_sim_b1',45)->nullable();
-            $table->integer('no_sim_b1_expiredate')->nullable();
+            $table->bigInteger('no_sim_b1_expiredate')->nullable();
 
             $table->string('no_sim_b2_umum',45)->nullable();
-            $table->integer('no_sim_b2_umum_expiredate')->nullable();
+            $table->bigInteger('no_sim_b2_umum_expiredate')->nullable();
 
             $table->string('no_sim_c',45)->nullable();
-            $table->integer('no_sim_c_expiredate')->nullable();
+            $table->bigInteger('no_sim_c_expiredate')->nullable();
 
             $table->string('agama',30)->nullable();
 
             $table->string('marital_status',45)->nullable();
-            $table->integer('married_date')->nullable();
+            $table->bigInteger('married_date')->nullable();
 
             $table->string('gol_darah',20)->nullable();
             $table->text('alamat_ktp')->nullable();
@@ -80,7 +80,7 @@ class CreateSynMKaryawansTable extends Migration
             $table->string('telp2',50)->nullable();
 
             $table->string('no_npwp',50)->nullable();
-            $table->integer('npwp_effectivedate')->nullable();
+            $table->bigInteger('npwp_effectivedate')->nullable();
             $table->text('alamat_npwp')->nullable();
 
             $table->string('npp_bpjs_ketenagakerjaan',45)->nullable();
@@ -122,7 +122,7 @@ class CreateSynMKaryawansTable extends Migration
             $table->string('group_id',1)->nullable();
             $table->string('email',100)->nullable();
             $table->string('attachment',255)->nullable();
-            $table->integer('agreement_expire')->nullable();
+            $table->bigInteger('agreement_expire')->nullable();
             $table->enum('flag',['1', '0'])->default('0')->nullable();
 
             $table->timestamps();

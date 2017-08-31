@@ -18,8 +18,8 @@ class CreateSynTransTrainingDetailsTable extends Migration
             $table->string('payroll_id',45);
             $table->string('id_training',200)->nullable();
             $table->string('attachment',200)->nullable();
-            $table->integer('tanggal_mulai')->nullable();
-            $table->integer('tanggal_akhir')->nullable();
+            $table->bigInteger('tanggal_mulai')->nullable();
+            $table->bigInteger('tanggal_akhir')->nullable();
             $table->string('status',50)->nullable();
             $table->string('skor_evaluasi_efektifitas',20)->nullable();
             $table->dateTime('date_created')->nullable();

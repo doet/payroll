@@ -1,4 +1,4 @@
-<?php
+bigInteger<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,10 +17,10 @@ class CreateSynTransTrainingHeadersTable extends Migration
           $table->string('id')->unique()->nullable();
           $table->string('jenis_training',45)->nullable();
           $table->string('nama_training',200)->nullable();
-          $table->integer('tanggal_mulai')->nullable();
-          $table->integer('tanggal_akhir')->nullable();
+          $table->bigInteger('tanggal_mulai')->nullable();
+          $table->bigInteger('tanggal_akhir')->nullable();
           $table->string('trainer',200)->nullable();
-          $table->integer('tanggal_rencana')->nullable();
+          $table->bigInteger('tanggal_rencana')->nullable();
           $table->string('skor_evaluasi',20)->nullable();
           $table->dateTime('date_created')->nullable();
           $table->string('created_by',200)->nullable();
